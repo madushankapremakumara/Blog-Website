@@ -1,0 +1,53 @@
+.glass-nav {
+  background: rgba(5, 8, 16, 0.7);
+  backdrop-filter: blur(15px);
+  border-bottom: 0.8px solid rgba(136, 146, 176, 0.1);
+  padding: 1rem 0;
+  transition: var(--transition-smooth);
+}
+
+.brand-text {
+  font-weight: 800;
+  color: var(--text-primary) !important;
+  font-size: 1.5rem;
+  letter-spacing: 2px;
+}
+
+.brand-text .accent {
+  color: var(--accent-color);
+}
+
+.nav-link-custom {
+  color: var(--text-secondary) !important;
+  font-weight: 500;
+  margin: 0 1rem;
+  transition: var(--transition-smooth);
+}
+
+.nav-link-custom:hover {
+  color: var(--accent-color) !important;
+}
+
+.btn-admin {
+  background: transparent;
+  border: 1px solid var(--accent-color);
+  color: var(--accent-color) !important;
+  border-radius: 6px;
+  padding: 0.4rem 1.2rem !important;
+  font-weight: 600;
+  transition: var(--transition-smooth);
+}
+
+.btn-admin:hover {
+  background: var(--accent-color);
+  color: white !important;
+  box-shadow: 0 0 15px rgba(255, 77, 77, 0.3);
+}
+
+/* Toggler customization for dark theme */
+.custom-toggler.navbar-toggler {
+  border-color: var(--border-color);
+}
+.custom-toggler .navbar-toggler-icon {
+  filter: invert(1);
+}
