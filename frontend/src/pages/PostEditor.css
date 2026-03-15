@@ -1,0 +1,16 @@
+.PostEditor input::placeholder,
+.PostEditor textarea::placeholder {
+  color: rgba(255, 255, 255, 0.3) !important;
+}
+
+.PostEditor select option {
+  background-color: var(--bg-primary) !important;
+}
+
+.PostEditor .form-control:focus,
+.PostEditor .form-select:focus {
+  background-color: rgba(136, 146, 176, 0.05) !important;
+  border-color: var(--accent-color) !important;
+  color: white !important;
+  box-shadow: none !important;
+}

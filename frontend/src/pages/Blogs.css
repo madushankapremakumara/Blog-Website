@@ -1,0 +1,46 @@
+.search-container, .date-filter-container {
+  border-radius: 50px;
+  background: rgba(255, 255, 255, 0.03);
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.search-container:focus-within, .date-filter-container:focus-within {
+  border-color: var(--accent-color);
+  background: rgba(255, 77, 77, 0.05);
+  box-shadow: 0 0 20px rgba(255, 77, 77, 0.1);
+}
+
+.date-select option {
+  background-color: #0c1221;
+  color: white;
+}
+
+.search-input::placeholder {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.filter-pill {
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  padding: 6px 20px;
+  border-radius: 50px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.filter-pill:hover {
+  border-color: var(--accent-color);
+  color: var(--accent-color);
+  background: rgba(255, 77, 77, 0.05);
+}
+
+.filter-pill.active {
+  background: var(--accent-color);
+  border-color: var(--accent-color);
+  color: white;
+  box-shadow: 0 5px 15px rgba(255, 77, 77, 0.3);
+}

@@ -73,3 +73,57 @@ h6 {
   background-color: #ff3333;
   box-shadow: 0 0 15px rgba(255, 77, 77, 0.4);
 }
+
+/* Instagram-style Like Button (Global) */
+.like-btn-insta {
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 0;
+  transition: transform 0.2s ease;
+  cursor: pointer;
+}
+
+.like-btn-insta:hover {
+  transform: scale(1.1);
+}
+
+.heart-emoji {
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+.like-count {
+  color: var(--text-primary);
+}
+
+.like-btn-insta.liking {
+  color: var(--accent-color);
+  animation: heartBeatInsta 0.4s ease-in-out;
+}
+
+.like-btn-insta.liking i {
+  color: var(--accent-color);
+}
+
+.like-btn-insta.liked i {
+  color: var(--accent-color);
+}
+
+.like-btn-insta.liked {
+  color: var(--text-primary);
+}
+
+@keyframes heartBeatInsta {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.4); }
+  100% { transform: scale(1); }
+}
+
+.accent-text {
+  color: var(--accent-color);
+}
