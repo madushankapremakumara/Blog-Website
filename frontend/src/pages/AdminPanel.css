@@ -1,0 +1,159 @@
+.admin-table {
+  background: transparent !important;
+}
+
+.admin-table thead th {
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-bottom: 1px solid var(--border-color);
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.admin-table tbody td {
+  background: transparent;
+  color: var(--text-primary);
+  border-bottom: 1px solid var(--border-color);
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem;
+  vertical-align: middle;
+}
+
+.admin-table tbody tr:hover td {
+  background: rgba(255, 77, 77, 0.05);
+}
+
+.status-badge {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  text-transform: uppercase;
+}
+
+.status-badge.published {
+  background: rgba(40, 167, 69, 0.1);
+  color: #28a745;
+  border: 1px solid rgba(40, 167, 69, 0.2);
+}
+
+.status-badge.draft {
+  background: rgba(255, 193, 7, 0.1);
+  color: #ffc107;
+  border: 1px solid rgba(255, 193, 7, 0.2);
+}
+
+.admin-table .btn-link {
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: var(--transition-smooth);
+}
+
+.admin-table .btn-link:hover {
+  opacity: 0.8;
+}
+
+.admin-search-container {
+  border-radius: 50px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: all 0.3s ease;
+  min-width: 180px;
+}
+
+.admin-search-container:focus-within {
+  border-color: var(--accent-color);
+  background: rgba(255, 77, 77, 0.05);
+  box-shadow: 0 0 15px rgba(255, 77, 77, 0.1);
+}
+
+.admin-filter-select {
+  border-radius: 50px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  font-size: 0.85rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.admin-filter-select:focus {
+  border-color: var(--accent-color);
+  outline: none;
+  background: rgba(255, 77, 77, 0.05);
+}
+
+.text-accent {
+  color: var(--accent-color) !important;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.text-accent:hover {
+  text-decoration: underline;
+}
+
+/* Button Refinement Utilities */
+.admin-tab-btn {
+  height: 48px !important;
+  min-width: 160px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  padding: 0 1.5rem !important;
+  border-radius: 12px !important;
+  transition: all 0.3s ease !important;
+  border: 1px solid rgba(255, 255, 255, 0.05) !important;
+  text-decoration: none !important;
+}
+
+.admin-tab-btn.active {
+  background-color: var(--accent-color) !important;
+  color: white !important;
+  border-color: var(--accent-color) !important;
+}
+
+.admin-tab-btn.inactive {
+  background: var(--glass-bg) !important;
+  backdrop-filter: var(--glass-filter);
+  color: var(--text-secondary) !important;
+}
+
+.admin-tab-btn.inactive:hover {
+  border-color: rgba(255, 77, 77, 0.3) !important;
+  color: var(--text-primary) !important;
+}
+
+.admin-pagination-btn {
+  height: 30px !important;
+  min-width: 85px;
+  font-size: 0.75rem !important;
+  font-weight: 600;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  padding: 0 12px !important;
+  border-radius: 8px !important;
+  background: var(--glass-bg) !important;
+  backdrop-filter: var(--glass-filter);
+  border: 1px solid rgba(255, 255, 255, 0.05) !important;
+  color: var(--text-secondary) !important;
+  transition: all 0.2s ease !important;
+  text-decoration: none !important;
+}
+
+.admin-pagination-btn:hover:not(:disabled) {
+  border-color: rgba(255, 77, 77, 0.3) !important;
+  color: var(--text-primary) !important;
+}
+
+.admin-pagination-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}

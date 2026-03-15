@@ -17,6 +17,19 @@
   color: var(--accent-color);
 }
 
+.beta-flag {
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: white;
+  background: var(--accent-color);
+  padding: 2px 8px;
+  border-radius: 4px;
+  letter-spacing: 0.5px;
+  margin-top: -2px;
+  box-shadow: 0 0 10px rgba(255, 77, 77, 0.2);
+}
+
 .nav-link-custom {
   color: var(--text-secondary) !important;
   font-weight: 500;
