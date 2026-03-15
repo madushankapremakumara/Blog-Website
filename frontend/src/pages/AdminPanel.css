@@ -56,3 +56,43 @@
 .admin-table .btn-link:hover {
   opacity: 0.8;
 }
+
+.admin-search-container {
+  border-radius: 50px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: all 0.3s ease;
+  min-width: 180px;
+}
+
+.admin-search-container:focus-within {
+  border-color: var(--accent-color);
+  background: rgba(255, 77, 77, 0.05);
+  box-shadow: 0 0 15px rgba(255, 77, 77, 0.1);
+}
+
+.admin-filter-select {
+  border-radius: 50px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  font-size: 0.85rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.admin-filter-select:focus {
+  border-color: var(--accent-color);
+  outline: none;
+  background: rgba(255, 77, 77, 0.05);
+}
+
+.text-accent {
+  color: var(--accent-color) !important;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.text-accent:hover {
+  text-decoration: underline;
+}

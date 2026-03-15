@@ -11,6 +11,8 @@ const Blogs = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [activeCategory, setActiveCategory] = useState("all");
   const [dateRange, setDateRange] = useState("all");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
   const fetchCategories = React.useCallback(async () => {
     try {
@@ -38,14 +40,17 @@ const Blogs = () => {
         url += `&created_at__gte=${gteDate.toISOString()}`;
       }
 
+      url += `&page=${currentPage}&page_size=9`;
+
       const response = await axios.get(url);
-      setPosts(response.data);
+      setPosts(response.data.results);
+      setTotalPages(Math.ceil(response.data.count / 9));
       setLoading(false);
     } catch (error) {
       console.error("Error fetching posts:", error);
       setLoading(false);
     }
-  }, [searchTerm, activeCategory, dateRange]);
+  }, [searchTerm, activeCategory, dateRange, currentPage]);
 
   useEffect(() => {
     fetchCategories();
@@ -86,7 +91,7 @@ const Blogs = () => {
               <select 
                 className="date-select bg-transparent border-0 px-3 text-white"
                 value={dateRange}
-                onChange={(e) => setDateRange(e.target.value)}
+                onChange={(e) => { setDateRange(e.target.value); setCurrentPage(1); }}
                 style={{ outline: 'none', cursor: 'pointer' }}
               >
                 <option value="all" className="bg-dark">All Time</option>
@@ -100,7 +105,7 @@ const Blogs = () => {
           <div className="category-filters d-flex flex-wrap justify-content-center gap-2">
             <button 
               className={`filter-pill ${activeCategory === 'all' ? 'active' : ''}`}
-              onClick={() => setActiveCategory('all')}
+              onClick={() => { setActiveCategory('all'); setCurrentPage(1); }}
             >
               All
             </button>
@@ -108,7 +113,7 @@ const Blogs = () => {
               <button 
                 key={cat.id}
                 className={`filter-pill ${activeCategory === cat.slug ? 'active' : ''}`}
-                onClick={() => setActiveCategory(cat.slug)}
+                onClick={() => { setActiveCategory(cat.slug); setCurrentPage(1); }}
               >
                 {cat.name}
               </button>
@@ -145,9 +150,34 @@ const Blogs = () => {
           <p className="text-muted">Try adjusting your search or filters.</p>
           <button 
             className="btn-primary-custom mt-3"
-            onClick={() => { setSearchTerm(""); setActiveCategory("all"); setDateRange("all"); }}
+            onClick={() => { setSearchTerm(""); setActiveCategory("all"); setDateRange("all"); setCurrentPage(1); }}
           >
             Clear All Filters
+          </button>
+        </div>
+      )}
+
+      {/* Pagination Controls */}
+      {!loading && totalPages > 1 && (
+        <div className="d-flex justify-content-center align-items-center gap-4 mt-5">
+          <button 
+            className="filter-pill border-0 py-2"
+            disabled={currentPage === 1}
+            onClick={() => setCurrentPage(prev => prev - 1)}
+            style={{ height: '36px', display: 'flex', alignItems: 'center' }}
+          >
+            <i className="bi bi-chevron-left me-2"></i> Previous
+          </button>
+          <div className="text-secondary">
+            Page <span className="text-white">{currentPage}</span> of <span className="text-white">{totalPages}</span>
+          </div>
+          <button 
+            className="filter-pill border-0 py-2"
+            disabled={currentPage === totalPages}
+            onClick={() => setCurrentPage(prev => prev + 1)}
+            style={{ height: '36px', display: 'flex', alignItems: 'center' }}
+          >
+            Next <i className="bi bi-chevron-right ms-2"></i>
           </button>
         </div>
       )}
