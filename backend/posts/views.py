@@ -4,8 +4,8 @@ from rest_framework.views import APIView
 from rest_framework.filters import OrderingFilter, SearchFilter
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.pagination import PageNumberPagination
-from .models import Category, Post
-from .serializers import PostSerializer, CategorySerializer
+from .models import Category, Post, ContactMessage
+from .serializers import PostSerializer, CategorySerializer, ContactMessageSerializer
 
 class StandardResultsSetPagination(PageNumberPagination):
     page_size = 10
@@ -89,3 +89,30 @@ class PostSummaryView(APIView):
             "published": all_posts.filter(status='published').count(),
             "drafts": all_posts.filter(status='draft').count(),
         })
+
+class ContactMessageCreate(generics.CreateAPIView):
+    queryset = ContactMessage.objects.all()
+    serializer_class = ContactMessageSerializer
+    permission_classes = [permissions.AllowAny]
+
+class ContactMessageList(generics.ListAPIView):
+    queryset = ContactMessage.objects.all()
+    serializer_class = ContactMessageSerializer
+    permission_classes = [permissions.IsAuthenticated]
+    pagination_class = StandardResultsSetPagination
+
+    def get_queryset(self):
+        if self.request.user.is_staff:
+            return ContactMessage.objects.all()
+        return ContactMessage.objects.none()
+
+class ContactMessageDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = ContactMessage.objects.all()
+    serializer_class = ContactMessageSerializer
+    permission_classes = [permissions.IsAuthenticated]
+    lookup_field = 'id'
+
+    def get_queryset(self):
+        if self.request.user.is_staff:
+            return ContactMessage.objects.all()
+        return ContactMessage.objects.none()

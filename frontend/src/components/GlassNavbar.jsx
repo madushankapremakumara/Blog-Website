@@ -15,7 +15,12 @@ const GlassNavbar = () => {
           <div>
             OPEN<span className="accent">BLOG</span>
           </div>
-          <span className="beta-flag ms-2">Beta v0.5</span>
+            <span
+              className="badge rounded-pill bg-danger ms-2 px-2 py-1"
+              style={{ fontSize: '0.6rem', letterSpacing: '1px', verticalAlign: 'middle' }}
+            >
+              v1.0
+            </span>
         </Navbar.Brand>
         <Navbar.Toggle
           className="custom-toggler"

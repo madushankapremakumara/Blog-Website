@@ -1,6 +1,14 @@
 from rest_framework import serializers
-from .models import Category, Post
+from .models import Category, Post, ContactMessage
 from django.contrib.auth.models import User
+
+
+
+class ContactMessageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ContactMessage
+        fields = '__all__'
+        read_only_fields = ('created_at',)
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
