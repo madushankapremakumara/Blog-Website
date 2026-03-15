@@ -1,6 +1,6 @@
 # OpenBlog - High-Tech Glassmorphic Blog System 🚀🪐
 
-OpenBlog is a premium, feature-rich blog platform designed with a sleek glassmorphic aesthetic inspired by modern tech interfaces like `openclaw.ai`. It features a powerful Django REST Framework backend and a dynamic React frontend.
+OpenBlog is a premium, feature-rich blog platform designed with a sleek glassmorphic aesthetic inspired by modern tech interfaces. It features a powerful Django REST Framework backend and a dynamic React frontend.
 
 ## 🌟 Key Features
 
