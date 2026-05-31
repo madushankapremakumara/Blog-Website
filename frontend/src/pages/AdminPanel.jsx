@@ -31,12 +31,12 @@ const AdminPanel = () => {
   const fetchStats = React.useCallback(async () => {
     try {
       const response = await axios.get(
-        "http://localhost:8000/api/post-summary/",
+        "/api/post-summary/",
       );
       setStats(response.data);
 
       const msgResponse = await axios.get(
-        "http://localhost:8000/api/messages/",
+        "/api/messages/",
       );
       const unread = (msgResponse.data.results || []).filter(
         (m) => !m.is_read,
@@ -49,7 +49,7 @@ const AdminPanel = () => {
 
   const fetchCategories = React.useCallback(async () => {
     try {
-      const response = await axios.get("http://localhost:8000/api/categories/");
+      const response = await axios.get("/api/categories/");
       setCategories(response.data);
     } catch (error) {
       console.error("Error fetching categories:", error);
@@ -59,7 +59,7 @@ const AdminPanel = () => {
   const fetchPosts = React.useCallback(async () => {
     setLoading(true);
     try {
-      let url = "http://localhost:8000/api/posts/";
+      let url = "/api/posts/";
       const params = new URLSearchParams();
 
       if (searchTerm) params.append("search", searchTerm);
@@ -96,7 +96,7 @@ const AdminPanel = () => {
     setLoading(true);
     try {
       const response = await axios.get(
-        `http://localhost:8000/api/messages/?page=${currentPage}&page_size=10`,
+        `/api/messages/?page=${currentPage}&page_size=10`,
       );
       setMessages(response.data.results || []);
       setTotalPages(Math.ceil((response.data.count || 0) / 10));
@@ -126,8 +126,7 @@ const AdminPanel = () => {
 
   const handleLogout = () => {
     localStorage.clear();
-    delete axios.defaults.headers.common["Authorization"];
-    navigate("/login");
+    window.location.href = import.meta.env.BASE_URL + "#/login";
   };
 
   const handleDeleteClick = (post) => {
@@ -137,7 +136,7 @@ const AdminPanel = () => {
 
   const confirmDelete = async () => {
     try {
-      await axios.delete(`http://localhost:8000/api/posts/${selectedPost.id}/`);
+      await axios.delete(`/api/posts/${selectedPost.id}/`);
       setPosts(posts.filter((p) => p.id !== selectedPost.id));
       setShowDeleteModal(false);
       setSelectedPost(null);
@@ -157,7 +156,7 @@ const AdminPanel = () => {
     setShowMessageModal(true);
     if (!msg.is_read) {
       try {
-        await axios.patch(`http://localhost:8000/api/messages/${msg.id}/`, {
+        await axios.patch(`/api/messages/${msg.id}/`, {
           is_read: true,
         });
         setMessages(
@@ -173,10 +172,10 @@ const AdminPanel = () => {
   const handleDeleteMessage = async (id) => {
     if (window.confirm("Are you sure you want to delete this message?")) {
       try {
-        await axios.delete(`http://localhost:8000/api/messages/${id}/`);
+        await axios.delete(`/api/messages/${id}/`);
         setMessages(messages.filter((m) => m.id !== id));
         const msgResponse = await axios.get(
-          "http://localhost:8000/api/messages/",
+          "/api/messages/",
         );
         setUnreadCount(
           (msgResponse.data.results || []).filter((m) => !m.is_read).length,

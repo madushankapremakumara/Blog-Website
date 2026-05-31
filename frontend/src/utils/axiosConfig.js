@@ -3,7 +3,7 @@ import { getGuestId } from './session';
 
 const setupAxios = () => {
   // Set the base configuration
-  axios.defaults.baseURL = 'http://localhost:8000';
+  axios.defaults.baseURL = 'https://madushnkapremakumara.pythonanywhere.com';
 
   // Request interceptor: Attach token if it exists
   axios.interceptors.request.use(
@@ -32,35 +32,32 @@ const setupAxios = () => {
       // Handle 401 Unauthorized
       if (error.response && error.response.status === 401 && !originalRequest._retry) {
         // Don't retry if the original request WAS the refresh token request itself
-        if (originalRequest.url.includes('/api/token/refresh/')) {
-          localStorage.clear();
-          window.location.href = '/login';
-          return Promise.reject(error);
-        }
-
-        originalRequest._retry = true;
-        const refreshToken = localStorage.getItem('refresh_token');
-
-        if (refreshToken) {
-          try {
-            // Use a fresh axios instance or a direct call that doesn't trigger the interceptor again
-            // with the same header logic if possible, or just be careful.
-            const res = await axios.post('/api/token/refresh/', { refresh: refreshToken });
-            const newAccessToken = res.data.access;
-            localStorage.setItem('access_token', newAccessToken);
-            
-            // Retry the original request with the new token
-            originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
-            return axios(originalRequest);
-          } catch (refreshError) {
+          if (originalRequest.url.includes('/api/token/refresh/')) {
             localStorage.clear();
-            window.location.href = '/login';
-            return Promise.reject(refreshError);
+            window.location.href = import.meta.env.BASE_URL + '#/login';
+            return Promise.reject(error);
           }
-        } else {
-            localStorage.clear();
-            window.location.href = '/login';
-        }
+
+          originalRequest._retry = true;
+          const refreshToken = localStorage.getItem('refresh_token');
+
+          if (refreshToken) {
+            try {
+              const res = await axios.post('/api/token/refresh/', { refresh: refreshToken });
+              const newAccessToken = res.data.access;
+              localStorage.setItem('access_token', newAccessToken);
+              
+              originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
+              return axios(originalRequest);
+            } catch (refreshError) {
+              localStorage.clear();
+              window.location.href = import.meta.env.BASE_URL + '#/login';
+              return Promise.reject(refreshError);
+            }
+          } else {
+              localStorage.clear();
+              window.location.href = import.meta.env.BASE_URL + '#/login';
+          }
       }
       return Promise.reject(error);
     }

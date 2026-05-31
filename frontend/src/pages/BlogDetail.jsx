@@ -18,7 +18,7 @@ const BlogDetail = () => {
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        const response = await axios.get(`http://localhost:8000/api/posts/${id}/`);
+        const response = await axios.get(`/api/posts/${id}/`);
         setPost(response.data);
         setLikes(response.data.likes);
         setIsLiked(response.data.is_liked);
@@ -36,7 +36,7 @@ const BlogDetail = () => {
     if (isLiking) return;
     setIsLiking(true);
     try {
-      const response = await axios.post(`http://localhost:8000/api/posts/${id}/like/`);
+      const response = await axios.post(`/api/posts/${id}/like/`);
       setLikes(response.data.likes);
       setIsLiked(response.data.is_liked);
     } catch (err) {

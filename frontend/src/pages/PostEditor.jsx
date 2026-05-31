@@ -23,7 +23,7 @@ const PostEditor = () => {
     // 1. Fetch Categories
     const fetchCategories = async () => {
       try {
-        const res = await axios.get('http://localhost:8000/api/categories/');
+        const res = await axios.get('/api/categories/');
         setCategories(res.data);
         // Default to first category if creating
         if (!isEdit && res.data.length > 0) {
@@ -37,7 +37,7 @@ const PostEditor = () => {
     // 2. Fetch Post if Editing
     const fetchPost = async () => {
       try {
-        const res = await axios.get(`http://localhost:8000/api/posts/${id}/`);
+        const res = await axios.get(`/api/posts/${id}/`);
         setPost({
           title: res.data.title,
           excerpt: res.data.excerpt,
@@ -60,9 +60,9 @@ const PostEditor = () => {
     e.preventDefault();
     try {
       if (isEdit) {
-        await axios.put(`http://localhost:8000/api/posts/${id}/`, post);
+        await axios.put(`/api/posts/${id}/`, post);
       } else {
-        await axios.post('http://localhost:8000/api/posts/', post);
+        await axios.post('/api/posts/', post);
       }
       navigate('/admin-panel');
     } catch (err) {

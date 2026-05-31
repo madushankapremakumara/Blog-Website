@@ -27,20 +27,33 @@ class PostList(generics.ListCreateAPIView):
     ordering = ['-created_at'] # Default
 
     def get_queryset(self):
-        # Admins/Staff should see all posts in the dashboard
+        queryset = Post.objects.all()
+        status_param = self.request.query_params.get('status')
+        
+        # If staff, they see all posts by default (for the dashboard)
+        # UNLESS they explicitly filter by status (like the Home page does)
         if self.request.user.is_authenticated and self.request.user.is_staff:
-            return Post.objects.all()
-        # Guests only see published posts
-        return Post.objects.filter(status='published')
+            if status_param:
+                queryset = queryset.filter(status=status_param)
+            return queryset
+            
+        # For guests (and non-staff), strictly return only published posts
+        return queryset.filter(status='published')
 
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
 
 class PostDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Post.objects.all()
     serializer_class = PostSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     lookup_field = 'id'
+
+    def get_queryset(self):
+        # Staff can see any post (for editing/previewing)
+        if self.request.user.is_authenticated and self.request.user.is_staff:
+            return Post.objects.all()
+        # Non-staff can ONLY see published posts
+        return Post.objects.filter(status='published')
 
 class PostLike(APIView):
     permission_classes = [permissions.AllowAny]

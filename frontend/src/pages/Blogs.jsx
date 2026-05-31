@@ -16,7 +16,7 @@ const Blogs = () => {
 
   const fetchCategories = React.useCallback(async () => {
     try {
-      const response = await axios.get("http://localhost:8000/api/categories/");
+      const response = await axios.get("/api/categories/");
       setCategories(response.data);
     } catch (error) {
       console.error("Error fetching categories:", error);
@@ -26,7 +26,7 @@ const Blogs = () => {
   const fetchPosts = React.useCallback(async () => {
     setLoading(true);
     try {
-      let url = "http://localhost:8000/api/posts/?status=published";
+      let url = "/api/posts/?status=published";
       if (searchTerm) url += `&search=${searchTerm}`;
       if (activeCategory !== "all") url += `&category__slug=${activeCategory}`;
       

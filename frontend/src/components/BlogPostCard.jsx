@@ -16,7 +16,7 @@ const BlogPostCard = ({ id, title, excerpt, category, date, author, source, init
 
     setIsLiking(true);
     try {
-      const response = await axios.post(`http://localhost:8000/api/posts/${id}/like/`);
+      const response = await axios.post(`/api/posts/${id}/like/`);
       setLikes(response.data.likes);
       setIsLiked(response.data.is_liked);
     } catch (err) {

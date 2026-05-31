@@ -13,20 +13,16 @@ const Home = () => {
     const fetchPosts = async () => {
       setLoading(true);
       try {
-        let url = 'http://localhost:8000/api/posts/';
-        
-        if (activeTab === 'top') {
-          url += '?ordering=-likes';
-        } else if (activeTab === 'trending') {
-          // Simplification: Top 10 by likes
-          url += '?ordering=-likes&limit=10';
-        } else {
-          url += '?ordering=-created_at';
+        const params = {
+          status: 'published',
+          ordering: activeTab === 'top' || activeTab === 'trending' ? '-likes' : '-created_at'
+        };
+
+        if (activeTab === 'trending') {
+          params.limit = 10;
         }
 
-        const response = await axios.get(url);
-        // DRF might return {results: [...]} if pagination is enabled, 
-        // but currently we have it off or basic.
+        const response = await axios.get('/api/posts/', { params });
         setPosts(response.data.results || response.data);
         setLoading(false);
       } catch (error) {
